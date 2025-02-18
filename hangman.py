@@ -3,7 +3,7 @@ from typing import Tuple
 
 def select_random_word() -> str:
     """seleciona uma palavra aleatória do arquivo words.txt e retorna ela"""
-    with open('hangman/words.txt') as file:
+    with open('words.txt') as file:
         words = file.readlines()
         
     return choice(words).strip()
@@ -18,7 +18,7 @@ def display_list(char_list: list) -> None:
     
 def display_lives(guesses: int) -> None:
     """imprime a quantidade de vidas restantes no console"""
-    print(f"you have {guesses} guesses left!")
+    print(f"\nvocê tem {guesses} tentativas")
     
 
 def compare_guess_with_hint(secret_word: str, hint: str, guess: str) -> bool:
@@ -46,11 +46,11 @@ def validate_guess(guess: str, hint: list, secret_word: str, guessed_letters: se
         correct_guess = compare_guess_with_hint(secret_word, hint, guess)
         return correct_guess, hint == list(secret_word)
     
-    print("you already guessed this letter! try again.")
+    print("você já tentou essa letra, tente outra!")
     return True, False
 
 
-def main():
+def execute_game() -> None:
     """executa o código principal para o jogo"""
     secret_word = select_random_word()
     hint = ["_" for x in secret_word]
@@ -62,19 +62,16 @@ def main():
     while not has_won and guesses > 0:
         display_lives(guesses)
         display_list(hint)
-        guess = input("what is your guess? ").lower()
+        guess = input("qual o seu chute? ").lower()
         correct_guess, has_won = validate_guess(guess, hint, secret_word, guessed_letters)
         if not correct_guess:
             guesses -= 1
             
     if not has_won:
-        print("you lost, better luck next time")
-        print(f"the word was \"{secret_word}\"")
-        exit()
+        print("você perdeu")
+        print(f"a palavra era \"{secret_word}\"")
+        return
     
-    display_list(secret_word)
-    print(f"congrats! you won!")
+    print(f"\nparabéns! você acertou!")
+    print(f"a palavra era \"{secret_word}\"")
         
-        
-if __name__ == "__main__":
-    main()
