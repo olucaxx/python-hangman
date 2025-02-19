@@ -10,26 +10,27 @@ def update_words_file(words: list[str]) -> None:
 
 
 def print_words(words: list[str]) -> None:
+    print("\nListando as palavras: ")
+    if len(words) == 0:
+        print("Nenhuma palavra encontrada, adicione alguma!\n")
+        return
+    
     for index, word in enumerate(words, start=1):
         print(f"{index}. '{word}'")
-        
+    print()
+    
 
 def add_new_words(new_words: list[str], words: list[str]) -> None:
+    print(new_words)
+    input("digitarrr")
     for new_word in new_words:
-        words.append(new_word.strip())
+        if new_word.strip() != "":
+            words.append(new_word.strip())
+        print(True)
     
     
-def remove_word(word: str, words: list[str]) -> None:
-    if word in words:
-        words.remove(word)
-
-def main():
-    words = get_words_list()
-    new_words = input("quais as palavras? ").split(",")
-    add_new_words(new_words, words)
-    
-    print_words(words)
-    update_words_file(words)
-
-if __name__ == "__main__":
-    main()
+def remove_words(removed_words: list[str], words: list[str]) -> None:
+    for removed_word in removed_words:
+        if removed_word.strip() in words:
+            words.remove(removed_word.strip())
+        

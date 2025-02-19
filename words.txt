@@ -1,7 +1,6 @@
-test
-ola
-banana
-teste
+arroz
 feijao
-macaco
-dinheiro
+banana
+etc
+arroz
+orange
